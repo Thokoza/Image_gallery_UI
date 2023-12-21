@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Imagegallery_ui.Controllers
@@ -51,11 +52,8 @@ namespace Imagegallery_ui.Controllers
                     client.BaseAddress = new Uri(imagegalaryapi);
                     client.DefaultRequestHeaders.Clear();
 
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("multipart/form-data"));
-
-                    var myContent = JsonConvert.SerializeObject(file);
-                    var httpContent = new StringContent(myContent);
-                    HttpResponseMessage Res = await client.PostAsync("api/Images/UploadImage?path=" + path , httpContent);
+                    var content = new StringContent(JsonConvert.SerializeObject(file), Encoding.UTF32, "multipart/form-data");
+                    HttpResponseMessage Res =  await client.PostAsync("api/Images/UploadImage?path=" + path , content);
                    
 
                     if (Res.IsSuccessStatusCode)
@@ -63,7 +61,6 @@ namespace Imagegallery_ui.Controllers
                         return RedirectToAction("Index");
                     }
                 }
-          
                 return RedirectToAction("Index");
             }
             return View();
@@ -91,7 +88,7 @@ namespace Imagegallery_ui.Controllers
             }
             return View();
         }
-        public async Task<IActionResult> SearcchImages(string searchString)
+        public async Task<IActionResult> SearchImages(string searchString)
         {
             if (!string.IsNullOrEmpty(searchString))
             {
