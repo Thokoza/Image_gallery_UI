@@ -1,0 +1,48 @@
+﻿@model List<string>
+<h1>  Image Gallery Application</h1>
+<div class="container">
+<div class="card">
+    @using(Html.BeginForm("Index","Image", FormMethod.Post, new { enctype = "multipart/form-data"}))
+    {
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <input type="file" class="form-control" name="file" />
+                </div>
+                <div class="form-group col-md-3">
+                    <input type="submit" class="form-control btn btn-primary" name="submit" value="Upload" accept=".png,.jpg, .jpeg"><small>(Only image files allowed)</small>
+                </div>
+            </div>
+        
+    }
+
+<br />
+    <div class="card border-primary">
+     
+        <div class="row">
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var img in Model)
+                {
+                    <div class="col-lg-3 mt-1 mb-1">
+                        <div>
+                                <img src="~/Uploads/@img" height="100px" width="200px"/>
+                                <center>
+                                    <a class="btn btn-info" href="Image/Edit?Img=@img">Edit</a> 
+                                  <a class="btn btn-danger" href="Image/Delete?Img=@img">Delete</a>
+                                </center>
+                                  
+                         </div>
+                    </div>
+                
+                }
+
+            }
+            else
+            {
+                <div> No Images to show</div>
+
+            }
+        </div>
+    </div>
+</div>
+</div>
