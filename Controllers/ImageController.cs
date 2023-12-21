@@ -53,8 +53,9 @@ namespace Imagegallery_ui.Controllers
 
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("multipart/form-data"));
 
-                    //var myContent = JsonConvert.SerializeObject(file);
-                    HttpResponseMessage Res = await client.PostAsJsonAsync("api/Images/UploadImage?path=" + path , file);
+                    var myContent = JsonConvert.SerializeObject(file);
+                    var httpContent = new StringContent(myContent);
+                    HttpResponseMessage Res = await client.PostAsync("api/Images/UploadImage?path=" + path , httpContent);
                    
 
                     if (Res.IsSuccessStatusCode)

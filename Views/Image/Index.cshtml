@@ -1,5 +1,4 @@
 ﻿@model List<string>
-<h1>  Image Gallery Application</h1>
 <div class="container">
 <div class="card">
     @using(Html.BeginForm("Index","Image", FormMethod.Post, new { enctype = "multipart/form-data"}))
@@ -24,14 +23,11 @@
                 @foreach (var img in Model)
                 {
                     <div class="col-lg-3 mt-1 mb-1">
-                        <div>
                                 <img src="~/Uploads/@img" height="100px" width="200px"/>
                                 <center>
-                                    <a class="btn btn-info" href="Image/Edit?Img=@img">Edit</a> 
+                                  <a class="btn btn-info" href="Image/Edit?Img=@img">Edit</a> 
                                   <a class="btn btn-danger" href="Image/Delete?Img=@img">Delete</a>
-                                </center>
-                                  
-                         </div>
+                                </center>     
                     </div>
                 
                 }
