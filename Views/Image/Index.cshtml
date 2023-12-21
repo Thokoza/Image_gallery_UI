@@ -15,8 +15,15 @@
     }
 
 <br />
+<br />
+        <br />
     <div class="card border-primary">
-     
+            <form asp-controller="Movies" asp-action="Index">
+                <p>
+                    <input class="form-control" type="text" name="SearchString" placeholder="search for an image"/>
+                    <input class="form-control  btn btn-outline-info" type="submit" value="Filter" />
+                </p>
+            </form>
         <div class="row">
             @if (Model != null && Model.Any())
             {

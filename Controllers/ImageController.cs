@@ -91,5 +91,29 @@ namespace Imagegallery_ui.Controllers
             }
             return View();
         }
+        public async Task<IActionResult> SearcchImages(string searchString)
+        {
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(imagegalaryapi);
+                    client.DefaultRequestHeaders.Clear();
+
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    HttpResponseMessage Res = await client.GetAsync("api/Images/GetImageByFilePath?imageName=" + searchString);
+
+                    if (Res.IsSuccessStatusCode)
+                    {
+
+                        return RedirectToAction(Res.Content.ToString());
+
+                    }
+                }
+            }
+
+            return View();
+        }
     }
 }
